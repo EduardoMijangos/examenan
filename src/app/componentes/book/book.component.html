@@ -1,0 +1,95 @@
+<div class="container">
+    <h2>Encontrar por Id del libro</h2>
+    <form (submit)="getBookById()">
+      <div class="form-group">
+        <label for="bookId">Id del Libro:</label>
+        <input type="number" id="bookId" [(ngModel)]="bookId" name="bookId">
+      </div>
+      <button type="submit">Buscar Libro</button>
+    </form>
+  
+    <div *ngIf="book" class="fade-in">
+      <h3>Informacion</h3>
+      <div class="book-details">
+        <p><strong>Titulo:</strong> {{ book.title }}</p>
+        <p><strong>Autor:</strong> {{ book.autor.name }}</p>
+        <p><strong>Sinopsis:</strong> {{ book.sinopsis }}</p>
+        <p><strong>Numero de Paginas:</strong> {{ book.nump }}</p>
+        <p><strong>Clasificacion:</strong> {{ book.clasificacion }}</p>
+      </div>
+    </div>
+  
+    <div *ngIf="notFoundMessage" class="fade-in">
+      <p class="error-message">{{ notFoundMessage }}</p>
+    </div>
+  
+    <h2>Create Book</h2>
+    <form (submit)="createBook()">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="bookData.title" name="title">
+      </div>
+      <div class="form-group">
+        <label for="author">Author:</label>
+        <input type="text" id="author" [(ngModel)]="bookData.autor" name="author">
+      </div>
+      <div class="form-group">
+        <label for="synopsis">Synopsis:</label>
+        <textarea id="synopsis" [(ngModel)]="bookData.sinopsis" name="synopsis"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="numPages">Number of Pages:</label>
+        <input type="number" id="numPages" [(ngModel)]="bookData.nump" name="numPages">
+      </div>
+      <div class="form-group">
+        <label for="classification">Classification:</label>
+        <select id="classification" name="classification" [(ngModel)]="bookData.clasificacion" required>
+          <option value="">Seleccionar</option>
+          <option value="Niños">Niños</option>
+          <option value="Adultos">Adultos</option>
+          <option value="Adolescentes">Adolescentes</option>
+        </select>
+      </div>
+      <button type="submit">Create Book</button>
+    </form>
+  
+    <h2>Delete Book By ID</h2>
+    <form (submit)="deleteBookById()">
+      <div class="form-group">
+        <label for="deleteBookId">Book ID:</label>
+        <input type="number" id="deleteBookId" [(ngModel)]="bookId" name="deleteBookId">
+      </div>
+      <button type="submit">Delete Book</button>
+    </form>
+  
+    <p>{{ deleteMessage }}</p>
+  
+    <h2>Búsqueda de libros por clasificación</h2>
+    <div class="search-section">
+      <div class="form-group">
+        <label for="clasificacion">Clasificación:</label>
+        <select id="clasificacion" name="clasificacion" [(ngModel)]="selectedClasificacion">
+          <option value="">Seleccionar</option>
+          <option value="Niños">Niños</option>
+          <option value="Adultos">Adultos</option>
+          <option value="Adolescentes">Adolescentes</option>
+        </select>
+      </div>
+      <button (click)="searchBooksByClasificacion()" class="bus">Buscar</button>
+  
+      <div *ngIf="searchResult" class="fade-in">
+        <div class="book-results">
+          <div *ngFor="let book of searchResult" class="book-card">
+            <h3>{{ book.title }}</h3>
+            <p>{{ book.autor }}</p>
+            <p>{{ book.sinopsis }}</p>
+            <p>{{ book.nump }} paginas</p>
+            <p>{{ book.clasificacion }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <p *ngIf="!searchResult" class="no-results">No se encontraron libros.</p>
+    </div>
+  </div>
+  
